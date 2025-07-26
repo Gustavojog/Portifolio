@@ -352,48 +352,32 @@ nav a:hover {
 }
 
 .projects {
-  padding: 6rem 2rem;
-  width: 100%;
-  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  padding: 3rem 2rem;
+  width: 100%;
 }
 
 .projects-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: #00aaff;
-  text-align: center;
+  font-size: 2.5rem;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #00aaff;
-  padding-bottom: 0.5rem;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-}
-
-.projects-title:hover {
-  color: #0077cc;
-  border-color: #0077cc;
+  color: #4db8ff;
+  text-align: center;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: repeat(3, 260px);
-  /* 3 linhas fixas de 260px */
   gap: 1.5rem;
-  max-height: calc(3 * 260px + 2 * 1.5rem);
-  /* altura das 3 linhas + gap */
+  max-height: calc(3 * 260px + 2 * 1.5rem); /* altura de 3 linhas + 2 gaps */
   overflow-y: auto;
+  padding-right: 10px;
   width: 100%;
   max-width: 1000px;
-  padding-right: 10px;
-  /* espaço para scroll */
 }
 
-/* Mantemos o estilo bonito da Pj-portifolio como antes */
+/* Estilo dos projetos individuais */
 .Proj {
   background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
   border: 2px solid #333;
@@ -438,6 +422,7 @@ nav a:hover {
   font-size: 1rem;
   color: #ccc;
 }
+
 
 /* Keyframes */
 @keyframes galaxyMove {
