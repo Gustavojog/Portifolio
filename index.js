@@ -6,17 +6,15 @@ async function fetchGitHubProjects() {
         const repos = await response.json();
         const container = document.getElementById('projects-container');
 
-        repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)); // ordena do mais recente para o mais antigo
+        repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
         for (const repo of repos) {
-            let imageUrl = `https://opengraph.githubassets.com/1/${username}/${repo.name}`; // fallback se não tiver imagem no README
+            let imageUrl = `https://opengraph.githubassets.com/1/${username}/${repo.name}`;
 
             try {
                 const readmeResponse = await fetch(`https://raw.githubusercontent.com/${username}/${repo.name}/master/README.md`);
                 if (readmeResponse.ok) {
                     const readmeText = await readmeResponse.text();
-
-                    // Regex para encontrar a primeira imagem no README (formato markdown ![alt](url))
                     const imageMatch = readmeText.match(/!\[.*?\]\((.*?)\)/);
                     if (imageMatch && imageMatch[1]) {
                         imageUrl = imageMatch[1];
@@ -35,6 +33,13 @@ async function fetchGitHubProjects() {
                 <p>${repo.description || 'Projeto sem descrição.'}</p>
                 <a href="${repo.html_url}" target="_blank" style="display:block;margin-top:10px;color:#4db8ff;">Ver no GitHub</a>
             `;
+
+            // Adiciona evento click para abrir página customizada
+            proj.style.cursor = 'pointer';
+            proj.addEventListener('click', () => {
+                openProjectDetails(repo, imageUrl);
+            });
+
             container.appendChild(proj);
         }
     } catch (error) {
@@ -42,7 +47,42 @@ async function fetchGitHubProjects() {
     }
 }
 
+function openProjectDetails(repo, imageUrl) {
+    const htmlContent = `
+    <html>
+    <head>
+        <title>${repo.name} - Detalhes</title>
+        <link rel="stylesheet" href="projects.css">
+    </head>
+    <body>
+        <h1>${repo.name}</h1>
+        <img src="${imageUrl}" alt="${repo.name}">
+        <div class="section">
+            <h2>Descrição</h2>
+            <p>${repo.description || 'Sem descrição detalhada.'}</p>
+        </div>
+        <div class="section">
+            <h2>Detalhes</h2>
+            <ul>
+                <li><strong>Última atualização:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</li>
+                <li><strong>Linguagem principal:</strong> ${repo.language || 'Não especificada'}</li>
+                <li><strong>Estrelas:</strong> ${repo.stargazers_count}</li>
+                <li><strong>Forks:</strong> ${repo.forks_count}</li>
+            </ul>
+        </div>
+        <a href="${repo.html_url}" target="_blank">Ver no GitHub</a>
+    </body>
+    </html>
+    `;
+
+    const newWindow = window.open();
+    newWindow.document.write(htmlContent);
+    newWindow.document.close();
+}
+
 fetchGitHubProjects();
+
+
 
 
 

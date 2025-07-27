@@ -10,22 +10,9 @@
 }
 
 html {
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(14px, 1.2vw, 18px); /* Ajustei para um pouco menos "fluido", para manter legibilidade parecida */
 }
 
-body {
-  background: rgb(20, 22, 34);
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  /* ativa scroll vertical */
-  color: white;
-  display: flex;
-  flex-direction: column;
-  /* conteúdo em coluna */
-  align-items: center;
-  /* centraliza horizontalmente */
-}
 body {
   background: #141622;
   background-image:
@@ -36,15 +23,22 @@ body {
   background-repeat: repeat;
   background-size: 200px 200px;
   animation: starsTwinkle 6s linear infinite;
+
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Mantive keyframes starsTwinkle */
 @keyframes starsTwinkle {
   0% { background-position: 0 0; }
   100% { background-position: 100px 100px; }
 }
-
-
-
 
 /* Splash de apresentação */
 .apresentasoes {
@@ -74,23 +68,21 @@ body {
   margin-top: 0.5rem;
   background: linear-gradient(270deg, #ff00cc, #3333ff, #00ffff, #ff00cc);
   background-size: 400% 400%;
-  background-clip: text; /* sem prefixo */
   -webkit-background-clip: text;
-  color: transparent; /* para browsers que não suportam -webkit-text-fill-color */
   -webkit-text-fill-color: transparent;
+  color: transparent;
   opacity: 0;
   animation: fadeInUp 1s ease forwards, galaxyMove 10s ease infinite;
   animation-delay: 0.4s, 0s;
   animation-fill-mode: forwards, infinite;
 }
 
-
 /* Header */
 header {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 0.5rem 9%; /* mais fino no topo e embaixo */
+  padding: 0.5rem 9%;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -104,8 +96,6 @@ header {
   animation: fadeInDown 2s ease forwards;
   animation-delay: 3.5s;
 }
-
-
 
 .logo {
   font-size: clamp(2rem, 4vw, 3rem);
@@ -134,7 +124,7 @@ nav {
 }
 
 nav a {
-  font-size: clamp(1rem, 1.5vw, 1.8rem);
+  font-size: clamp(1rem, 1.2vw, 1.8rem); /* ajuste para menos fluido */
   font-weight: 600;
   border-bottom: 3px solid transparent;
   opacity: 0;
@@ -155,10 +145,10 @@ nav a:hover {
 .Home {
   height: 100vh;
   display: flex;
-  gap: clamp(1rem, 3vw, 5rem);
-  margin-top: 198px; 
+  gap: clamp(1rem, 2vw, 4rem); /* menos espaçamento máximo */
+  margin-top: 198px;
   padding: 2rem 5%;
-  max-width: 80vw;
+  max-width: 1200px; /* limitando largura para uniformizar */
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -167,12 +157,10 @@ nav a:hover {
   animation-delay: 4.5s;
 }
 
-
-
 /* Avatar */
 .avatar {
-  margin-right: 160px;
-  width: clamp(200px, 30vw, 500px);
+  margin-right: clamp(50px, 10vw, 160px); /* margin adaptativa */
+  width: clamp(200px, 25vw, 400px); /* largura mais controlada */
   aspect-ratio: 1 / 1;
   border-radius: 70%;
   object-fit: cover;
@@ -189,7 +177,6 @@ nav a:hover {
   box-shadow: 0 0 60px rgba(0, 229, 255, 1), 0 0 120px rgba(0, 229, 255, 0.7);
 }
 
-/* Efeito circular pulsante */
 .avatar::before {
   content: '';
   position: absolute;
@@ -205,25 +192,10 @@ nav a:hover {
   filter: blur(10px);
 }
 
-/* Animação de pulso */
-@keyframes pulse-avatar {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.2);
-    opacity: 0.1;
-  }
-}
-
-
-
-
-/* Intro Text */
+/* Textos */
 .intro-text {
   flex: 1;
-  max-width: 700px;
+  max-width: 650px;
   margin-top: 1rem;
 }
 
@@ -240,9 +212,8 @@ nav a:hover {
 }
 
 .palavras {
-  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-size: clamp(1rem, 1.6vw, 1.5rem);
   line-height: 1.3;
- 
 }
 
 .highlight {
@@ -257,13 +228,14 @@ nav a:hover {
   transform: scale(1.1);
 }
 
+/* Redes sociais */
 .github,
 .insta,
 .discord,
 .linkedin {
   margin-top: 5px;
-  margin-right: 10px;
-  width: 100px;
+  margin-right: 8px;
+  width: clamp(50px, 7vw, 90px);
   transition: transform 0.3s ease;
 }
 
@@ -272,9 +244,9 @@ nav a:hover {
 .discord:hover,
 .linkedin:hover {
   transform: scale(1.15);
-
 }
 
+/* Skills */
 .skills {
   padding: 6rem 2rem;
   width: 100%;
@@ -302,22 +274,17 @@ nav a:hover {
   border-color: #0077cc;
 }
 
-
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: repeat(3, 260px);
-  /* 3 linhas fixas de 260px */
   gap: 1.5rem;
   max-height: calc(3 * 260px + 2 * 1.5rem);
-  /* altura das 3 linhas + gap */
   overflow-y: auto;
   width: 100%;
   max-width: 1000px;
   padding-right: 10px;
-  /* espaço para scroll */
 }
-
 
 .skill-card {
   margin: 7px;
@@ -350,7 +317,43 @@ nav a:hover {
   font-size: 0.95rem;
   color: #ccc;
 }
+.skill-card {
+  position: relative;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.skill-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+/* Esconde o tempo usado inicialmente */
+.time-used {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0, 229, 255, 0.8);
+  color: #000;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Mostra o tempo usado no hover */
+.skill-card:hover .time-used {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* Projects */
 .projects {
   display: flex;
   flex-direction: column;
@@ -370,14 +373,14 @@ nav a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
-  max-height: calc(3 * 260px + 2 * 1.5rem); /* altura de 3 linhas + 2 gaps */
+  max-height: calc(3 * 260px + 2 * 1.5rem);
   overflow-y: auto;
   padding-right: 10px;
   width: 100%;
   max-width: 1000px;
 }
 
-/* Estilo dos projetos individuais */
+/* Projects card */
 .Proj {
   background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
   border: 2px solid #333;
@@ -423,55 +426,28 @@ nav a:hover {
   color: #ccc;
 }
 
-
 /* Keyframes */
 @keyframes galaxyMove {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
 }
 
 @keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsivo */
+/* Responsivo para tablets e celulares */
 @media (max-width: 768px) {
   .Home {
     flex-wrap: wrap;
@@ -479,6 +455,7 @@ nav a:hover {
     gap: 1.5rem;
     padding: 1rem;
     margin-top: 150px;
+    max-width: 95vw;
   }
 
   .avatar {
@@ -524,15 +501,16 @@ nav a:hover {
     max-width: 100%;
     height: auto;
   }
+
   .github,
-.insta,
-.discord,
-.linkedin {
-  margin-top: 2.3px;
-  margin-right: 5px;
-  width: 46px;
-  transition: transform 0.3s ease;
-}
+  .insta,
+  .discord,
+  .linkedin {
+    margin-top: 2.3px;
+    margin-right: 5px;
+    width: 46px;
+    transition: transform 0.3s ease;
+  }
 }
 
 @media (max-width: 420px) {
